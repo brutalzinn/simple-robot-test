@@ -36,7 +36,6 @@ This estructure was developed because i need to use Python with OpenCV to proces
 
 ![example of a request](docs/version_esp01_mega_2.jpg "Example 2 of model 2")
 
-# Fun video
+# Fun video while init tests
 
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/BU_s8jfL3HU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+[![My fun video while testing](https://img.youtube.com/vi/BU_s8jfL3HU/0.jpg)](https://www.youtube.com/watch?v=BU_s8jfL3HU)
