@@ -1,10 +1,15 @@
-import time
+import threading
 import keyboard
-import serial
-
-ser=serial.Serial("COM3",9600)
-
+from websockets.sync.client import connect
+from models.finder import Finder
+# global vars
+gateway = "192.168.0."
+address = "0.0.0.0"
+port = 5000
+ 
 def handle_key_event(event):
+   
+    print("controle") 
     if event.name == 'w':
         forward()
     elif event.name == 'a':
@@ -17,28 +22,29 @@ def handle_key_event(event):
 
 def forward():
     print("forward")
-    ser.write((b'w'))
 
 def left():
     print("left")
-    ser.write(b'a')
 
 def right():
     print("right")
-    ser.write(b'd')
-
 
 def reverse():
     print("reverse")
-    ser.write(b's')
 
 def forceStop():
     print("force stop")
-    ser.write(b'f')
 
 
-keyboard.on_press(handle_key_event)
 
-keyboard.wait('esc')
-forceStop()
-ser.close()
+if __name__ == "__main__":
+    t = Finder(gateway, port)
+    print("Trying to hand shake to esp 01 module")
+    address = t.waitAddress()
+    print(address)
+    # with connect(address) as websocket:
+    #     websocket.send()
+    # keyboard.on_press(handle_key_event)
+    # keyboard.wait('esc')
+    # forceStop()
+    # ws.close()
