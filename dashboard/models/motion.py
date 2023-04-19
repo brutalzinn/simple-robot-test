@@ -7,7 +7,7 @@ class Motion:
     """
     Cria um movimento.
     """
-    def __init__(self, direction: Directions, velocity, time = 100):
+    def __init__(self, direction: Directions, velocity, time = 50):
         self.direction = direction
         self.velocity = velocity
         self.time = time
