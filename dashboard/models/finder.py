@@ -1,29 +1,26 @@
 from concurrent.futures.thread import ThreadPoolExecutor
-from websockets.sync.client import connect
+import socket
 
 class Finder:
     def __init__(self, gateway ,port):
-        self.found = False
         self.address = "0.0.0.0"
         self.gateway = gateway
         self.port = port
 
     def waitAddress(self):
         with ThreadPoolExecutor() as executor:
-            for host in range(1, 255):
-                executor.submit(self.__find, host)
-                if self.found:
-                    break
-            return self.address
+            for i in range(1, 255):
+                self.address = f"{self.gateway}{i}"
+                executor.submit(self.__find, self.address, self.port)
+        return self.address
     
-    def __find(self, host):
+    def __find(self, host, port):
+            s = socket.socket()
+            s.settimeout(0.5)
             try:
-                self.address = f"ws://{self.gateway}{host}:{self.port}"
-                with connect(self.address, open_timeout=0.5, close_timeout=0.1) as websocket: 
-                    websocket.send("1")
-                    print(f"esp 01 as found in {self.address}")
-                    self.found = True
-                    websocket.close()
+                s.connect((host,port))
+                self.address = host
+                s.close()
+                return True
             except:
-                self.found = False
-                pass    
+                return False
