@@ -14,7 +14,11 @@ class Finder:
                 executor.submit(self.__find, self.address, self.port)
         return self.address
     
-    def __find(self, host, port):
+    def __find(self, host:str, port:str):
+            """
+            :param str host: host address
+            :param str port: host address
+            """
             s = socket.socket()
             s.settimeout(0.5)
             try:

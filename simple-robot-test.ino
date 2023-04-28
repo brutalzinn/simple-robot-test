@@ -4,12 +4,9 @@
 #define MAX_SPEED 255
 #define BREAK_SEED 0
 
-
 AF_DCMotor motor_right(3);
 AF_DCMotor motor_left(4);
 StaticJsonDocument<200> doc;
-
-
 
 void setup()
 {
@@ -20,25 +17,6 @@ Serial.println("done");
 
 
 void loop(){
-// if (Serial.available() > 0) {
-//     char command = Serial.read();
-//     Serial.println("wait");
-//     if (command == 'w') {
-//         forward();
-//     }
-//     else if (command == 'a') {
-//         left();
-//     }
-//    else if (command == 'd') {
-//         right();
-//     }
-//     else if (command == 's') {
-//         reverse();
-//     }
-//     Serial.println("done");
-//     delay(100);
-//     // stop();
-//   }
   if (Serial3.available() > 0) {
     DeserializationError error =  deserializeJson(doc, Serial3);
     if (error) {
@@ -46,12 +24,7 @@ void loop(){
     Serial.println(error.f_str());
     return;
     }
-
-    JsonArray array = doc.as<JsonArray>();
-    for(JsonVariant v : array) {
-       move(v["direction"], v["velocity"], v["time"]);
-    }
-    
+    move(doc["direction"], doc["velocity"], doc["time"]);
   }
 }
 void move(String direction, long velocity, long time){
@@ -60,7 +33,6 @@ void move(String direction, long velocity, long time){
     Serial.println(velocity);
     Serial.println(time);
     if (direction == "forward") {
-        Serial.print("going to forward.");
         forward();
     }
     else if (direction == "left") {

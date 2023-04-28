@@ -36,9 +36,7 @@ def forceStop():
     print("force stop")
     ser.write(b'f')
 
-
 keyboard.on_press(handle_key_event)
-
 keyboard.wait('esc')
 forceStop()
 ser.close()

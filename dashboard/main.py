@@ -7,7 +7,6 @@ from models.finder import Finder
 gateway = "192.168.0."
 port = 5000
 queue = []
-url = "ws://0.0.0.0"
 ws: websocket = None
 
 def handle_key_event(event):
@@ -48,9 +47,9 @@ def send_package():
     queue.clear()
 
 if __name__ == "__main__":
-    t = Finder(gateway, port)
+    finder = Finder(gateway, port)
     print("Trying to find esp 01 module in the network..")
-    ipAddress = t.waitAddress()
+    ipAddress = finder.waitAddress()
     print("The cloak of invisibility didn't work.")
     print(f"esp was found at {ipAddress}")
     url = "ws://{}:{}".format(ipAddress, port)
