@@ -4,7 +4,7 @@ from models.directions import Directions
 from models.motion import Motion
 from models.finder import Finder
 # global vars
-gateway = "192.168.0."
+gateway = "192.168.0.1"
 port = 5000
 queue = []
 ws: websocket = None
@@ -48,10 +48,7 @@ def send_package():
 
 if __name__ == "__main__":
     finder = Finder(gateway, port)
-    print("Trying to find esp 01 module in the network..")
     ipAddress = finder.waitAddress()
-    print("The cloak of invisibility didn't work.")
-    print(f"esp was found at {ipAddress}")
     url = "ws://{}:{}".format(ipAddress, port)
     ws = websocket.create_connection(url)
     keyboard.on_press(handle_key_event, ws)
