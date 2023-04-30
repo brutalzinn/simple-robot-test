@@ -1,24 +1,41 @@
-#include <AFMotor.h>
 #include <ArduinoJson.h>
 
 #define MAX_SPEED 255
 #define BREAK_SEED 0
 
-AF_DCMotor motor_right(3);
-AF_DCMotor motor_left(4);
+//MOTOR A
+int IN1 = 11;
+int IN2 = 10;
+
+//MOTOR B
+
+int IN3 = 9;
+int IN4 = 8;
+
+int velocityMotorA = 7;
+int velocityMotorB = 6;
+
 StaticJsonDocument<200> doc;
 
 void setup()
 {
 Serial.begin(9600);
-Serial3.begin(9600);
-Serial.println("done");
+// MOTOR A
+pinMode(IN1, OUTPUT);
+pinMode(IN2, OUTPUT);
+pinMode(velocityMotorA, OUTPUT);
+
+// MOTOR B
+pinMode(IN3, OUTPUT);
+pinMode(IN4, OUTPUT);
+pinMode(velocityMotorB, OUTPUT);
+
 }
 
 
 void loop(){
-  if (Serial3.available() > 0) {
-    DeserializationError error =  deserializeJson(doc, Serial3);
+  if (Serial.available() > 0) {
+    DeserializationError error =  deserializeJson(doc, Serial);
     if (error) {
     Serial.print(F("deserializeJson() failed: "));
     Serial.println(error.f_str());
@@ -48,34 +65,43 @@ void move(String direction, long velocity, long time){
     setBreakVelocity();
 }
 
-
-
 void forward(){
-  motor_left.run(FORWARD);
-  motor_right.run(FORWARD);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
 }
 //maybe i need inver the pins GRD and the positive of motors
 
 void left(){
-  motor_left.run(FORWARD);
-  motor_right.run(BACKWARD);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
 }
 void right(){
-  motor_right.run(FORWARD);
-  motor_left.run(BACKWARD);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
 }
 
 void reverse(){
-  motor_left.run(BACKWARD);
-  motor_right.run(BACKWARD);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
 }
 
 void setVelocity(long velocity){
-  motor_left.setSpeed(velocity);
-  motor_right.setSpeed(velocity);
+  analogWrite(velocityMotorA, velocity);
+  analogWrite(velocityMotorB, velocity);
 }
 
 void setBreakVelocity(){
-  motor_left.setSpeed(0);
-  motor_right.setSpeed(0);
+
 }
