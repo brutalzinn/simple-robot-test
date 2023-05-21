@@ -6,8 +6,9 @@
 #define ON LOW
 #define OFF HIGH
 
-WebSocketsServer webSocket = WebSocketsServer(SOCK_PORT); // Recebe dados do cliente
+String inputString = "";         // a String to hold incoming data
 
+WebSocketsServer webSocket = WebSocketsServer(SOCK_PORT);
 void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght) {
 
   switch (type) {
@@ -21,12 +22,22 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght
     break;
     case WStype_TEXT: {
       String text = String((char *) &payload[0]);
-        Serial.println(text);
+      Serial.println(text);
     }
      break;
    default:
     Serial.println("WAITING COMMANDS");
     break;
+  }
+
+  if(Serial.available()){
+    char inChar = (char)Serial.read();
+    inputString += inChar;
+    if (inChar == '\n') {
+       Serial.println(inputString);
+       webSocket.sendTXT(0, inputString);
+       inputString = "";
+    }
   }
 
 }
