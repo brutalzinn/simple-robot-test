@@ -29,7 +29,7 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght
     Serial.println("WAITING COMMANDS");
     break;
   }
-
+  ///needs be tested
   if(Serial.available()){
     char inChar = (char)Serial.read();
     inputString += inChar;

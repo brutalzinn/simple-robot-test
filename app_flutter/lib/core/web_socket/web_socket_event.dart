@@ -15,22 +15,6 @@ class OnConnect extends WebSocketConnectionEvent {}
 class OnEspResponse extends WebSocketConnectionEvent {
   final dynamic response;
   const OnEspResponse(this.response);
-  @override
-  bool operator ==(covariant OnEspResponse other) {
-    if (identical(this, other)) return true;
-
-    return other.response == response;
-  }
-
-  @override
-  int get hashCode => response.hashCode;
-}
-
-class OnEspResponseEvent extends WebSocketConnectionEvent {
-  final dynamic response;
-  const OnEspResponseEvent(
-    this.response,
-  );
 
   @override
   List<Object> get props => [response];
@@ -44,4 +28,14 @@ class OnEspRequest extends WebSocketConnectionEvent {
 
   @override
   List<Object> get props => [request];
+}
+
+class OnBatteryLevelChange extends WebSocketConnectionEvent {
+  final dynamic batteryLevel;
+  const OnBatteryLevelChange(
+    this.batteryLevel,
+  );
+
+  @override
+  List<Object> get props => [batteryLevel];
 }

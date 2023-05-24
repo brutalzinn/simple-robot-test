@@ -6,21 +6,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../core/web_socket/web_socket_connection_state.dart';
 
+// class HomePage extends StatelessWidget {
+//   /// {@macro counter_page}
+//   const HomePage({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocProvider(
+//       create: (_) => WebSocketConnectionBloc(),
+//       child: const HomePage(),
+//     );
+//   }
+// }
+
 class HomePage extends StatelessWidget {
-  /// {@macro counter_page}
   const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => WebSocketConnectionBloc(),
-      child: const HomeView(),
-    );
-  }
-}
-
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {

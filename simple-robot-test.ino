@@ -12,6 +12,7 @@
 #define velocityMotorB  6
 #define batteryAnalog  A0
 
+unsigned long movimentEvent = millis();
 
 StaticJsonDocument<200> doc;
 
@@ -57,14 +58,15 @@ void move(String direction, int velocity, long time){
     else if (direction == "left") {
         left();
     }
-   else if (direction == "right") {
+    else if (direction == "right") {
         right();
     }
     else if (direction == "reverse") {
         reverse();
     }
-    delay(time);
-    setBreakVelocity();
+   if((millis() - movimentEvent) > time){
+      setBreakVelocity();
+   }
 }
 
 void forward(){
@@ -110,12 +112,8 @@ void setBreakVelocity(){
 
 void verifyBattery()
 {
-  int sensorValue = analogRead(batteryAnalog); //read the A0 pin value
+  //i will use the divisor to verify the battery level
+  int sensorValue = analogRead(batteryAnalog);
   float voltage = sensorValue * (5.00 / 1023.00) * 2;
-  if (voltage < 6.50) 
-  {
-         Serial.println("needs be recharged");
-
-  }
-     Serial.println(sensorValue);
+  Serial.println(voltage);
 }

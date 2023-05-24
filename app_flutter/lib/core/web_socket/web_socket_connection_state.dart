@@ -56,9 +56,6 @@ class WebSocketConnectionState extends Equatable {
           json.decode(source) as Map<String, dynamic>);
 
   @override
-  bool get stringify => true;
-
-  @override
   List<Object> get props => [gateway, port, address, connected];
 }
 
@@ -74,4 +71,11 @@ class EspRequest extends WebSocketConnectionState {
   const EspRequest(this.request);
   @override
   List<Object> get props => [request];
+}
+
+class BatteryIndicator extends WebSocketConnectionState {
+  final dynamic batteryLevel;
+  const BatteryIndicator(this.batteryLevel);
+  @override
+  List<Object> get props => [batteryLevel];
 }
