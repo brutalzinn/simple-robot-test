@@ -34,7 +34,6 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght
     char inChar = (char)Serial.read();
     inputString += inChar;
     if (inChar == '\n') {
-       Serial.println(inputString);
        webSocket.sendTXT(0, inputString);
        inputString = "";
     }
