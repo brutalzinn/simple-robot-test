@@ -12,7 +12,10 @@
 #define velocityMotorB  6
 #define batteryAnalog  A0
 
+#define batteryVerifyTime = 10000
+
 unsigned long movimentEvent = millis();
+unsigned long verifyBatteryEvent = millis();
 
 StaticJsonDocument<200> doc;
 
@@ -40,12 +43,11 @@ void loop(){
     Serial.println(error.f_str());
     return;
     }
-    move(doc["direction"], doc["velocity"], doc["time"]);
-    if(doc["command"] == "battery_info"){
-       verifyBattery();
+    if((millis() - verifyBatteryEvent) > batteryVerifyTime){
+      verifyBattery();
     }
+    move(doc["direction"], doc["velocity"], doc["time"]);
   }
-   
 }
 void move(String direction, int velocity, long time){
     setVelocity(velocity);

@@ -1,7 +1,8 @@
-import 'package:app_flutter/core/web_socket/web_socket_connection_bloc.dart';
-import 'package:app_flutter/core/web_socket/web_socket_connection_state.dart';
+import 'package:app_flutter/core/web_socket/bloc/web_socket_connection_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../core/web_socket/bloc/web_socket_connection_state.dart';
 
 // class PanelPage extends StatelessWidget {
 //   const PanelPage({super.key});

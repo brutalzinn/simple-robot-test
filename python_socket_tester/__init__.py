@@ -2,6 +2,8 @@ from simple_websocket_server import WebSocketServer, WebSocket
 import time, traceback
 import threading
 
+from python_socket_tester.models.battery import Battery
+
 #https://gist.github.com/allanfreitas/e2cd0ff49bbf7ddf1d85a3962d577dbf
 def every(delay, task):
   next_time = time.time() + delay
@@ -18,7 +20,6 @@ class SimpleEcho(WebSocket):
        self.batteryIndicator = 7200
        super().__init__(server, sock, address)
     def handle(self):
-        # echo message back to client
         self.send_message(self.data)
     def batteryLevel(self):
        #7v is the max
@@ -28,7 +29,7 @@ class SimpleEcho(WebSocket):
        print(voltage)
        if(self.batteryIndicator== 1000):
           self.batteryIndicator= 7200
-       self.send_message(str({"battery_level": voltage}))
+       self.send_message(Battery(voltage).to_json())
 
     def connected(self):
         threading.Thread(target=lambda: every(0.5, self.batteryLevel)).start()
